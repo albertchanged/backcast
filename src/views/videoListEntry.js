@@ -13,12 +13,18 @@ var VideoListEntryView = Backbone.View.extend({
   events: {
     'click .video-list-entry-title': 'handleClick'
   },
+
   handleClick: function() {
-    alert(this.model.attributes.title);
+    this.model.select();
+    new VideoPlayerView({
+      model: this.model,
+      el: '.player',
+      collection: this.model.collection
+    }).render();
   },
+
   render: function() {
     this.$el.html(this.template(this.model.attributes));
     return this.$el;
-  },
-
+  }
 });
