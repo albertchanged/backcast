@@ -1,24 +1,29 @@
 var Videos = Backbone.Collection.extend({
 
   model: Video,
-  // this.videos: new Video(window.exampleVideoData);
+  results: undefined,
+
   initialize: function() {
-    
   },
 
-  findVideo: function (id) {
-    return this.get(id);
+  search: function(query) {
+    Backbone.ajax({
+       // cache: false,
+      data: {
+        key: 'AIzaSyDUK8Yh_bcV2H8Ha6ri061IkKzg02M0GFw',
+        q: query,
+        part: 'snippet',
+        maxResults: 5,
+        embeddable: true
+      },
+      dataType: 'json',
+      type: 'GET',
+      timeout: 5000,
+      url: 'https://www.googleapis.com/youtube/v3/search',
+      success: function(data) {
+        results = data.items;
+        console.log(results);
+      }
+    });
   },
-
-  removeVideo: function(id) {
-    console.log('Removed video has ', this);
-    return this.remove(this.where({id: id}), {silent: true});
-  },
-
-  unshiftVideo: function(video) {
-    console.log('UnshiftVideo has ', this);
-    return this.unshift(video);
-  },
-
-  // setVideo: function()
 });

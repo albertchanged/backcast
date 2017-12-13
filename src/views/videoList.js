@@ -4,6 +4,9 @@ var VideoListView = Backbone.View.extend({
 
   },
 
+  detectChange: function() {
+  },
+
   render: function() {
     this.$el.html(this.template());
     this.$el.children().children().detach();
